@@ -1,7 +1,4 @@
-FROM openjdk:8-jre-alpine3.9
- 
-# copy the packaged jar file into our docker image
-COPY target/SampleJava-0.0.1-SNAPSHOT.jar /SampleJava.jar
- 
-# set the startup command to execute the jar
-CMD ["java", "-jar", "/SampleJava.jar"]
+FROM alpine
+RUN apk add docker
+RUN adduser -D jenkins
+USER jenkins
