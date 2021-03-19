@@ -15,12 +15,16 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/bkk-2020/myproject.git']]])                   }
         }
 		
-    stages {
-        stage('Code Build') {
-            steps {
-                sh 'mvn clean install -DskipTests -fae'
-				}
-        }    
+    stage ('maven  build'){
+	    steps{
+		     script{
+			    def mavenHome=  tool name: 'Maven', type: 'maven'
+                sh "${mavenHome}/bin/mvn --version"
+                sh "${mavenHome}/bin/mvn clean install -DskipTests --fae"
+			 }
+		}
+    }
+ 
 
     stage('Build docker image') {
       steps{
