@@ -4,7 +4,7 @@ pipeline {
     
     environment {
         imageName = "mysample"
-        registryCredentials = "dockerhumrepo"
+        registryCredentials = "dockerhub"
         registry = "index.docker.io/v1/"
         dockerImage = ''
     }
@@ -14,7 +14,13 @@ pipeline {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/bkk-2020/myproject.git']]])                   }
         }
-    
+		
+    stages {
+        stage('Code Build') {
+            steps {
+                sh 'mvn clean install -DskipTests -fae'
+				}
+        }    
 
     stage('Build docker image') {
       steps{
