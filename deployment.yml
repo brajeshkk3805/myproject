@@ -22,7 +22,5 @@ spec:
           resources:
             requests:
               memory: 500Mi
-          imagePullPolicy: IfNotPresent
-      imagePullSecrets:
-       - name: $KUBERNETES_SECRET_NAME
+          
      
